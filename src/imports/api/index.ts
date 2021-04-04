@@ -59,11 +59,26 @@ export type Gym = {
   house: string,
   street: string,
   equipment: Equipment[],
+  photo: string,
 }
 
 const getGyms = async (): Promise<Gym[]> => {
-  const {data} = await client.get('/gyms');
-  return data;
+  await new Promise(resolve => setTimeout(resolve, 4000));
+  // const {data} = await client.get('/gyms');
+  // return data;
+  return [{
+    id: '1',
+    email: 'illya.kurochkin@gmail.com',
+    phone: '+380680081830',
+    fine: 3,
+    country: 'Україна',
+    city: 'Київ',
+    street: 'Хрещатик',
+    house: '24',
+    flat: '2',
+    photo: 'https://3434/343',
+    equipment: [],
+  }];
 };
 
 const api = {

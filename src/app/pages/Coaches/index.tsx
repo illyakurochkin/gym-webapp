@@ -1,12 +1,13 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
 import { Flex } from '@chakra-ui/react';
+import Layout from "../../../imports/components/Layout";
 
 const Coaches = () => {
   return (
-    <Flex>
+    <Layout>
       <Box>Coaches</Box>
-    </Flex>
+    </Layout>
   );
 };
 

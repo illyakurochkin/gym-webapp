@@ -10,9 +10,9 @@ const Layout = ({children}: Props) => {
     <Flex
       direction="column"
       maxWidth="850px"
-      minHeight="100px"
+      minHeight="500px"
       border="1px solid red"
-      margin="0 auto"
+      margin="0 auto 40px auto"
     >
       {children}
     </Flex>

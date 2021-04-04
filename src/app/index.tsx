@@ -8,7 +8,6 @@ import Coaches from "./pages/Coaches";
 import Gyms from "./pages/Gyms";
 import WorkoutsTypes from "./pages/WorkoutsTypes";
 import Subscriptions from './pages/Subscriptions';
-import Contacts from "./pages/Contacts";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Footer from "../imports/modules/Footer";
@@ -34,7 +33,6 @@ const App = () => {
                 <Route path="/coaches" component={Coaches} />
                 <Route path="/workouts-types" component={WorkoutsTypes}/>
                 <Route path="/subscriptions" component={Subscriptions}/>
-                <Route path="/contacts" component={Contacts}/>
                 <Route path="/about" component={About} />
                 {authorized && <Route path="/profile" component={Account} />}
                 {authorized && <Route exact path="/workouts" component={Workouts} />}

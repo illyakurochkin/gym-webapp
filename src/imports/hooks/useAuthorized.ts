@@ -1,14 +1,14 @@
 import {useEffect, useState} from "react";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import api from "../api";
-import {useDataHandler} from "./useDataHandler";
-import {selectAccount, selectAccountLoading} from "../store/account";
+import {selectAccount, selectAccountLoading, setAccountAction, setAccountLoadingAction} from "../store/account";
 
 export const AUTH_TOKEN_KEY = 'api-access-token';
 
 export const useAuthorized = () => {
   const account = useSelector(selectAccount);
   const accountLoading = useSelector(selectAccountLoading);
+  const dispatch = useDispatch();
 
   const [authorized, setAuthorized] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -17,9 +17,13 @@ export const useAuthorized = () => {
   useEffect(() => {
     const token = localStorage.getItem(AUTH_TOKEN_KEY);
 
-    if(token) {
+    if (token) {
       api.setAuthorizationHeader(token);
-      setAuthorized(true);
+
+      api.getAccount()
+        .then((account) => dispatch(setAccountAction(account)))
+        .then(() => dispatch(setAccountLoadingAction(false)))
+        .then(() => setAuthorized(true))
     }
   }, []);
 

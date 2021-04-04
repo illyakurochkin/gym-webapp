@@ -4,14 +4,8 @@ import { Header } from 'semantic-ui-react';
 import Menu from './Menu';
 import AuthButton from "./AuthButton";
 import CreateWorkoutButton from "./CreateWorkoutButton";
-import AuthorizedMenu from './AuthorizedMenu';
-import {useLocation} from "react-router-dom";
-import {useAuthorized} from "../../hooks/useAuthorized";
 
 const HeaderMenu = () => {
-  const {authorized} = useAuthorized();
-  const {pathname} = useLocation();
-
   return (
     <Flex
       direction="column"
@@ -30,7 +24,6 @@ const HeaderMenu = () => {
         </Flex>
       </Flex>
       <Menu />
-      {authorized && pathname !== '/' && <AuthorizedMenu />}
     </Flex>
   );
 };
