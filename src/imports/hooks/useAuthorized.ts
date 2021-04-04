@@ -24,7 +24,7 @@ export const useAuthorized = () => {
   }, []);
 
   return {
-    authorized: account && authorized,
+    authorized: account || authorized,
     loading: loading || accountLoading,
     error
   };

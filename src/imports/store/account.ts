@@ -3,11 +3,16 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 const SET_ACCOUNT = 'account/SET_ACCOUNT';
 const SET_ACCOUNT_LOADING = 'account/SET_ACCOUNT_LOADING';
 
-export const setAccountAction = createAction<any | null>(SET_ACCOUNT);
+type Account = {
+  username: string,
+  roles: string[],
+};
+
+export const setAccountAction = createAction<Account | null>(SET_ACCOUNT);
 export const setAccountLoadingAction = createAction<boolean>(SET_ACCOUNT_LOADING);
 
-export const selectAccount = (state: any) => state.account.data;
-export const selectAccountLoading = (state: any) => state.account.loading;
+export const selectAccount = (state: any): Account | null => state.account.data;
+export const selectAccountLoading = (state: any): boolean => state.account.loading;
 
 const INITIAL_STATE = {
   data: null,

@@ -1,8 +1,8 @@
 import React from 'react';
 import {Button, Form, Input} from 'semantic-ui-react';
 import {useForm} from "react-hook-form";
-import {Flex, Box} from '@chakra-ui/react';
-import {css} from "@emotion/react";
+import {Flex} from '@chakra-ui/react';
+import {Radio} from './styledComponents';
 
 export interface FormValues {
   email: string,
@@ -16,6 +16,9 @@ interface Props {
 const SignInForm = ({onSubmit}: Props) => {
   const {register, handleSubmit, watch, errors, formState: {isSubmitting}} = useForm();
 
+  const password = watch('password');
+
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Flex direction="column">
@@ -23,11 +26,13 @@ const SignInForm = ({onSubmit}: Props) => {
           <Input
             basic
             type="text"
-            name="name"
+            name="firstName"
             size="big"
             placeholder="Ім'я"
             input={{
-              ref: register,
+              ref: register({
+                required: 'Обов\'язкове поле',
+              }),
               style: {
                 borderRadius: 40,
                 border: '1px solid white',
@@ -40,12 +45,61 @@ const SignInForm = ({onSubmit}: Props) => {
         <Form.Field>
           <Input
             basic
+            type="text"
+            name="lastName"
+            size="big"
+            placeholder="Прізвище"
+            input={{
+              ref: register({
+                required: 'Обов\'язкове поле',
+              }),
+              style: {
+                borderRadius: 40,
+                border: '1px solid white',
+                backgroundColor: 'transparent',
+                color: 'white'
+              }
+            }}
+          />
+        </Form.Field>
+        <Flex direction="row">
+          <Form.Field>
+            <Radio
+              label='Жінка'
+              name='sex'
+              value='F'
+              ref={register}
+              style={{
+                paddingLeft: 10,
+                color: 'white'
+              }}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              label='Чоловік'
+              name='sex'
+              value='M'
+              ref={register}
+              style={{
+                paddingLeft: 10,
+                color: 'white !important'
+              }}
+            />
+          </Form.Field>
+        </Flex>
+        <Form.Field>
+          <Input
+            basic
             type="email"
             name="email"
             size="big"
             placeholder="Email"
             input={{
-              ref: register,
+              ref: register({
+                required: 'Обов\'язкове поле',
+                minLength: 5,
+              }),
               style: {
                 borderRadius: 40,
                 border: '1px solid white',
@@ -63,7 +117,9 @@ const SignInForm = ({onSubmit}: Props) => {
             name="password"
             placeholder="Пароль"
             input={{
-              ref: register,
+              ref: register({
+                required: 'Обов\'язкове поле',
+              }),
               style: {
                 borderRadius: 40,
                 border: '1px solid white',
@@ -81,7 +137,11 @@ const SignInForm = ({onSubmit}: Props) => {
             name="repeatPassword"
             placeholder="Повторити пароль"
             input={{
-              ref: register,
+              ref: register({
+                required: 'Обов\'язкове поле',
+                validate: (repeatPassword: string) => repeatPassword !== password
+                  ? 'Паролі не співпадають' : undefined
+              }),
               style: {
                 borderRadius: 40,
                 marginBottom: 10,
