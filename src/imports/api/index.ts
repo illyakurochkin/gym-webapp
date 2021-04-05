@@ -11,7 +11,7 @@ const authenticate = async (email: string, password: string): Promise<string> =>
   return data.accessToken;
 };
 
-const getAccount = async (): Promise<{ username: string, roles: string[] }> => {
+const getAccount = async (): Promise<any> => {
   const {data} = await client.get('/me');
   return data;
 };

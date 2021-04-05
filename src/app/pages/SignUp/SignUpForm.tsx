@@ -14,7 +14,7 @@ interface Props {
 }
 
 const SignInForm = ({onSubmit}: Props) => {
-  const {register, handleSubmit, watch, errors, formState: {isSubmitting}} = useForm();
+  const {register, handleSubmit, watch, formState: {isSubmitting}} = useForm();
 
   const password = watch('password');
 
@@ -83,7 +83,7 @@ const SignInForm = ({onSubmit}: Props) => {
               ref={register}
               style={{
                 paddingLeft: 10,
-                color: 'white !important'
+                color: 'white'
               }}
             />
           </Form.Field>

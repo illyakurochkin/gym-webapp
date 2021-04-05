@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 interface Props {
-  children: JSX.Element | JSX.Element[],
+  children: JSX.Element | JSX.Element[] | any,
 }
 
 const Layout = ({children}: Props) => {

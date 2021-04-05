@@ -1,13 +1,14 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
 import {useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {selectAccount, setAccountAction} from "../../../store/account";
+import {useDispatch} from "react-redux";
+import {setAccountAction} from "../../../store/account";
 import api from "../../../api";
+import {useAuthorized} from "../../../hooks/useAuthorized";
 
 const AuthButton = () => {
   const history = useHistory();
-  const account = useSelector(selectAccount);
+  const {authorized} = useAuthorized();
   const dispatch = useDispatch();
 
   const handleSignIn = () => {
@@ -20,20 +21,19 @@ const AuthButton = () => {
     history.push('/');
   };
 
-  if(!account) {
+  if (authorized) {
     return (
-      <Button primary basic circular onClick={handleSignIn}>
-        Увійти
+      <Button primary basic circular onClick={handleSignOut}>
+        Вийти
       </Button>
     );
   }
 
   return (
-    <Button primary basic circular onClick={handleSignOut}>
-      Вийти
+    <Button primary basic circular onClick={handleSignIn}>
+      Увійти
     </Button>
   );
-
 };
 
 export default AuthButton;

@@ -3,9 +3,10 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 const SET_ACCOUNT = 'account/SET_ACCOUNT';
 const SET_ACCOUNT_LOADING = 'account/SET_ACCOUNT_LOADING';
 
-type Account = {
+export type Account = {
   username: string,
   roles: string[],
+  photo: string,
 };
 
 export const setAccountAction = createAction<Account | null>(SET_ACCOUNT);
