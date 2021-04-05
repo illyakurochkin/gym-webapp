@@ -46,8 +46,9 @@ export type Equipment = {
   id: string,
   name: string,
   type: string,
-  equipmentCondition: string,
+  equipmentCondition: string
 }
+
 export type Gym = {
   id: string,
   email: string,
@@ -59,7 +60,17 @@ export type Gym = {
   house: string,
   street: string,
   equipment: Equipment[],
-  photo: string,
+  photo: string
+}
+
+export type Coach = {
+  id: string,
+  firstName: string,
+  lastName: string,
+  sex: string,
+  email: string,
+  payment: number,
+  rang: string
 }
 
 const getGyms = async (): Promise<Gym[]> => {
@@ -81,12 +92,37 @@ const getGyms = async (): Promise<Gym[]> => {
   }];
 };
 
+const getCoaches = async (): Promise<any> => {
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  //const {data} = await client.get('/coaches');
+  //return data;
+  return [{
+    id: 1,
+    firstName: "Michael",
+    lastName: "Fediuchenko",
+    sex: "M",
+    email: "mixei112295519@gmail.com",
+    payment: 150,
+    rang: "JUNIOR"
+  },
+  {
+    id: 2,
+    firstName: "Andrew",
+    lastName: "Fediuchenko",
+    sex: "M",
+    email: "mixei112292@gmail.com",
+    payment: 300,
+    rang: "TOP_COACH"
+  }];
+};
+
 const api = {
   getAccount,
   registerAccount,
   authenticate,
   setAuthorizationHeader,
   getGyms,
+  getCoaches
 }
 
 export default api;
