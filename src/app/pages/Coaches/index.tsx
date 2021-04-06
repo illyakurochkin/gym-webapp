@@ -25,7 +25,7 @@ const Coaches = () => {
       );
     }
 
-    return (coaches || [] as any).map((coach: Coach) => (
+    return (coaches || []).map((coach: Coach) => (
       <Card
         key={coach.id}
         photo={photo1}

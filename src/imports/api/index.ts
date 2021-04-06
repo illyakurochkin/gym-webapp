@@ -16,7 +16,7 @@ const getAccount = async (): Promise<any> => {
   return data;
 };
 
-type Account = {
+export type Account = {
   firstName: string,
   lastName: string,
   birthDate: string,
@@ -28,15 +28,12 @@ type Account = {
 }
 
 const registerAccount = async (account: Account) => {
-  const formData = new FormData();
-  formData.append('firstName', account.firstName);
-  formData.append('lastName', account.lastName);
-  formData.append('birthDate', account.birthDate);
-  formData.append('phoneNumber', account.phoneNumber);
-  formData.append('sex', account.sex);
-  formData.append('email', account.email);
-  formData.append('password', account.password);
-  formData.append('image', account.image);
+  // const formData = new FormData();
+  // formData.append('firstName', account.firstName);
+  // formData.append('lastName', account.lastName);
+  // formData.append('sex', account.sex);
+  // formData.append('email', account.email);
+  // formData.append('password', account.password);
 
   const {data} = await client.post('/api/auth/signup', account);
   console.log('data', data);
@@ -74,46 +71,46 @@ export type Coach = {
 }
 
 const getGyms = async (): Promise<Gym[]> => {
-  await new Promise(resolve => setTimeout(resolve, 4000));
-  // const {data} = await client.get('/gyms');
-  // return data;
-  return [{
-    id: '1',
-    email: 'illya.kurochkin@gmail.com',
-    phone: '+380680081830',
-    fine: 3,
-    country: 'Україна',
-    city: 'Київ',
-    street: 'Хрещатик',
-    house: '24',
-    flat: '2',
-    photo: 'https://3434/343',
-    equipment: [],
-  }];
+  const {data} = await client.get('/gyms');
+  return data.content;
+  // await new Promise(resolve => setTimeout(resolve, 4000));
+  // return [{
+  //   id: '1',
+  //   email: 'illya.kurochkin@gmail.com',
+  //   phone: '+380680081830',
+  //   fine: 3,
+  //   country: 'Україна',
+  //   city: 'Київ',
+  //   street: 'Хрещатик',
+  //   house: '24',
+  //   flat: '2',
+  //   photo: 'https://3434/343',
+  //   equipment: [],
+  // }];
 };
 
-const getCoaches = async (): Promise<any> => {
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  //const {data} = await client.get('/coaches');
-  //return data;
-  return [{
-    id: 1,
-    firstName: "Michael",
-    lastName: "Fediuchenko",
-    sex: "M",
-    email: "mixei112295519@gmail.com",
-    payment: 150,
-    rang: "JUNIOR"
-  },
-  {
-    id: 2,
-    firstName: "Andrew",
-    lastName: "Fediuchenko",
-    sex: "M",
-    email: "mixei112292@gmail.com",
-    payment: 300,
-    rang: "TOP_COACH"
-  }];
+const getCoaches = async (): Promise<Coach[]> => {
+  const {data} = await client.get('/coaches');
+  return data.content;
+  // await new Promise(resolve => setTimeout(resolve, 2000));
+  // return [{
+  //   id: 1,
+  //   firstName: "Michael",
+  //   lastName: "Fediuchenko",
+  //   sex: "M",
+  //   email: "mixei112295519@gmail.com",
+  //   payment: 150,
+  //   rang: "JUNIOR"
+  // },
+  // {
+  //   id: 2,
+  //   firstName: "Andrew",
+  //   lastName: "Fediuchenko",
+  //   sex: "M",
+  //   email: "mixei112292@gmail.com",
+  //   payment: 300,
+  //   rang: "TOP_COACH"
+  // }];
 };
 
 const api = {

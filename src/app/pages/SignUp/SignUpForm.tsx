@@ -5,19 +5,20 @@ import {Flex} from '@chakra-ui/react';
 import {Radio} from './styledComponents';
 
 export interface FormValues {
+  firstName: string,
+  lastName: string,
+  sex: string,
   email: string,
-  password: string,
+  password: string
 }
 
 interface Props {
-  onSubmit: (data: FormValues) => any,
+  onSubmit: (data: FormValues) => any
 }
 
-const SignInForm = ({onSubmit}: Props) => {
+const SignUpForm = ({onSubmit}: Props) => {
   const {register, handleSubmit, watch, formState: {isSubmitting}} = useForm();
-
   const password = watch('password');
-
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -173,4 +174,4 @@ const SignInForm = ({onSubmit}: Props) => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;

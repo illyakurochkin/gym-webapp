@@ -3,7 +3,7 @@ import {Flex} from '@chakra-ui/react';
 import {Button, Header, Icon} from "semantic-ui-react";
 import { Box } from '@chakra-ui/react';
 import SignUpForm, {FormValues} from './SignUpForm';
-import api from '../../../imports/api';
+import api, {Account} from '../../../imports/api';
 import {AUTH_TOKEN_KEY} from "../../../imports/hooks/useAuthorized";
 import {setAccountAction, setAccountLoadingAction} from "../../../imports/store/account";
 import { useDispatch } from 'react-redux';
@@ -13,8 +13,11 @@ const SignUp = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleSubmit = async ({email, password}: FormValues) => {
-    const token = await api.authenticate(email, password);
+  const handleSubmit = async (data: FormValues) => {
+    const resp = await api.registerAccount(data as Account);
+    //TODO: handle response, show toast if registration failed, otherwise authenticate.
+    
+    const token = await api.authenticate(data.email, data.password);
     localStorage.setItem(AUTH_TOKEN_KEY, token);
     api.setAuthorizationHeader(token);
 
