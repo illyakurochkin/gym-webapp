@@ -70,6 +70,15 @@ export type Coach = {
   rang: string
 }
 
+export type Workout = {
+  id: string,
+  startTime: string,
+  endTime: string,
+  coach: Coach,
+  gym: Gym,
+  surcharge: number
+}
+
 const getGyms = async (): Promise<Gym[]> => {
   const {data} = await client.get('/gyms');
   return data.content;
@@ -92,26 +101,12 @@ const getGyms = async (): Promise<Gym[]> => {
 const getCoaches = async (): Promise<Coach[]> => {
   const {data} = await client.get('/coaches');
   return data.content;
-  // await new Promise(resolve => setTimeout(resolve, 2000));
-  // return [{
-  //   id: 1,
-  //   firstName: "Michael",
-  //   lastName: "Fediuchenko",
-  //   sex: "M",
-  //   email: "mixei112295519@gmail.com",
-  //   payment: 150,
-  //   rang: "JUNIOR"
-  // },
-  // {
-  //   id: 2,
-  //   firstName: "Andrew",
-  //   lastName: "Fediuchenko",
-  //   sex: "M",
-  //   email: "mixei112292@gmail.com",
-  //   payment: 300,
-  //   rang: "TOP_COACH"
-  // }];
 };
+
+const getMyWorkouts = async (): Promise<Workout[]> => {
+  const {data} = await client.get('/workouts');
+  return data.content;
+}
 
 const api = {
   getAccount,
@@ -119,7 +114,8 @@ const api = {
   authenticate,
   setAuthorizationHeader,
   getGyms,
-  getCoaches
+  getCoaches,
+  getMyWorkouts
 }
 
 export default api;
