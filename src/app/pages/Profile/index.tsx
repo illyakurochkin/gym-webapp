@@ -1,9 +1,9 @@
 import React from 'react';
 import {useSelector} from "react-redux";
+import {selectAccount} from "../../../imports/store/account";
 import ClientProfile from "./ClientProfile";
 import CoachProfile from './CoachProfile';
 import GymProfile from './GymProfile';
-import {selectAccount} from "../../../imports/store/account";
 
 const Profile = () => {
   const account = useSelector(selectAccount);

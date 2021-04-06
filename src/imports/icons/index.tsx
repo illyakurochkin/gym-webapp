@@ -88,3 +88,23 @@ export const WorkoutsDisabledIcon = () => (
     <path d="M21.875 24H16.25V26H21.875V24Z" fill="#CAC8D7"/>
   </svg>
 );
+
+export const PhotoIcon = () => (
+  <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#filter0_d)">
+      <circle cx="35" cy="31" r="25" fill="white"/>
+      <path d="M32.7143 25L31.7619 26.9118H28.3333C27.5947 26.9118 27 27.5086 27 28.25V36.6618C27 37.4031 27.5947 38 28.3333 38H41.6667C42.4053 38 43 37.4031 43 36.6618V28.25C43 27.5086 42.4053 26.9118 41.6667 26.9118H38.2381L37.2857 25H32.7143ZM35 29.0147C36.8936 29.0147 38.4286 30.5554 38.4286 32.4559C38.4286 34.3564 36.8936 35.8971 35 35.8971C33.1065 35.8971 31.5714 34.3564 31.5714 32.4559C31.5714 30.5554 33.1065 29.0147 35 29.0147Z" fill="#828191"/>
+    </g>
+    <defs>
+      <filter id="filter0_d" x="0" y="0" width="70" height="70" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+        <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+        <feOffset dy="4"/>
+        <feGaussianBlur stdDeviation="5"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+      </filter>
+    </defs>
+  </svg>
+);

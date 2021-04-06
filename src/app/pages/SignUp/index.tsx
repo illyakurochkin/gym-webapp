@@ -13,7 +13,8 @@ const SignUp = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleSubmit = async ({email, password}: FormValues) => {
+  const handleSubmit = async ({email, password, ...val}: FormValues) => {
+    console.log('val', val);
     const token = await api.authenticate(email, password);
     localStorage.setItem(AUTH_TOKEN_KEY, token);
     api.setAuthorizationHeader(token);

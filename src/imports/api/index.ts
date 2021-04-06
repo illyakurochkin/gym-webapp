@@ -63,23 +63,27 @@ export type Gym = {
 }
 
 const getGyms = async (): Promise<Gym[]> => {
-  await new Promise(resolve => setTimeout(resolve, 4000));
-  // const {data} = await client.get('/gyms');
-  // return data;
-  return [{
-    id: '1',
-    email: 'illya.kurochkin@gmail.com',
-    phone: '+380680081830',
-    fine: 3,
-    country: 'Україна',
-    city: 'Київ',
-    street: 'Хрещатик',
-    house: '24',
-    flat: '2',
-    photo: 'https://3434/343',
-    equipment: [],
-  }];
+  // await new Promise(resolve => setTimeout(resolve, 4000));
+  // return [{
+  //   id: '1',
+  //   email: 'illya.kurochkin@gmail.com',
+  //   phone: '+380680081830',
+  //   fine: 3,
+  //   country: 'Україна',
+  //   city: 'Київ',
+  //   street: 'Хрещатик',
+  //   house: '24',
+  //   flat: '2',
+  //   photo: 'https://3434/343',
+  //   equipment: [],
+  // }];
+  const {data} = await client.get('/gyms');
+  return data.content;
 };
+
+const getCoaches = async (a?: any): Promise<any[]> => {
+  return [];
+}
 
 const api = {
   getAccount,
@@ -87,6 +91,7 @@ const api = {
   authenticate,
   setAuthorizationHeader,
   getGyms,
+  getCoaches,
 }
 
 export default api;
