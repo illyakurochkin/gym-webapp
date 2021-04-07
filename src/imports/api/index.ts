@@ -16,7 +16,7 @@ const getAccount = async (): Promise<any> => {
   return data;
 };
 
-type Account = {
+export type Account = {
   firstName: string,
   lastName: string,
   birthDate: string,
@@ -28,15 +28,12 @@ type Account = {
 }
 
 const registerAccount = async (account: Account) => {
-  const formData = new FormData();
-  formData.append('firstName', account.firstName);
-  formData.append('lastName', account.lastName);
-  formData.append('birthDate', account.birthDate);
-  formData.append('phoneNumber', account.phoneNumber);
-  formData.append('sex', account.sex);
-  formData.append('email', account.email);
-  formData.append('password', account.password);
-  formData.append('image', account.image);
+  // const formData = new FormData();
+  // formData.append('firstName', account.firstName);
+  // formData.append('lastName', account.lastName);
+  // formData.append('sex', account.sex);
+  // formData.append('email', account.email);
+  // formData.append('password', account.password);
 
   const {data} = await client.post('/api/auth/signup', account);
   console.log('data', data);
@@ -46,8 +43,9 @@ export type Equipment = {
   id: string,
   name: string,
   type: string,
-  equipmentCondition: string,
+  equipmentCondition: string
 }
+
 export type Gym = {
   id: string,
   email: string,
@@ -59,10 +57,31 @@ export type Gym = {
   house: string,
   street: string,
   equipment: Equipment[],
-  photo: string,
+  photo: string
+}
+
+export type Coach = {
+  id: string,
+  firstName: string,
+  lastName: string,
+  sex: string,
+  email: string,
+  payment: number,
+  rang: string
+}
+
+export type Workout = {
+  id: string,
+  startTime: string,
+  endTime: string,
+  coach: Coach,
+  gym: Gym,
+  surcharge: number
 }
 
 const getGyms = async (): Promise<Gym[]> => {
+  const {data} = await client.get('/gyms');
+  return data.content;
   // await new Promise(resolve => setTimeout(resolve, 4000));
   // return [{
   //   id: '1',
@@ -77,12 +96,16 @@ const getGyms = async (): Promise<Gym[]> => {
   //   photo: 'https://3434/343',
   //   equipment: [],
   // }];
-  const {data} = await client.get('/gyms');
+};
+
+const getCoaches = async (): Promise<Coach[]> => {
+  const {data} = await client.get('/coaches');
   return data.content;
 };
 
-const getCoaches = async (a?: any): Promise<any[]> => {
-  return [];
+const getMyWorkouts = async (): Promise<Workout[]> => {
+  const {data} = await client.get('/workouts');
+  return data.content;
 }
 
 const api = {
@@ -92,6 +115,7 @@ const api = {
   setAuthorizationHeader,
   getGyms,
   getCoaches,
+  getMyWorkouts
 }
 
 export default api;

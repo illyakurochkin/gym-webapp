@@ -24,7 +24,7 @@ const Gyms = () => {
       );
     }
 
-    return (gyms || [] as any).map((gym: Gym) => (
+    return (gyms || []).map((gym: Gym) => (
       <Card
         key={gym.id}
         photo={gym.photo}
