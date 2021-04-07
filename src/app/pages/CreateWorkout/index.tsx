@@ -7,6 +7,7 @@ import moment from 'moment';
 import { Flex } from '@chakra-ui/react';
 import { Datepicker } from './styledComponents';
 import './index.css';
+import {useHistory} from "react-router-dom";
 
 const initialSteps = [
   {
@@ -48,6 +49,8 @@ const mapCoachToOption = (coach: any) => {
 }
 
 const CreateWorkout = () => {
+  const history = useHistory();
+
   const [gym, setGym] = useState<Gym | null>();
   const [date, setDate] = useState<Date | null>();
   const [coach, setCoach] = useState<any | null>();
@@ -157,13 +160,6 @@ const CreateWorkout = () => {
         </List.Item>
       </List>
     );
-    // return (
-    //   <Box paddingLeft="20px">
-    //     <Box>{`GYM: ${gym ? gymLabel : '-'}`}</Box>
-    //     <Box>{`DATE: ${date ? dateLabel : '-'}`}</Box>
-    //     <Box>{`COACH: ${coach ? coachLabel : '-'}`}</Box>
-    //   </Box>
-    // )
   };
 
   const steps = initialSteps.map((step) => {
@@ -182,6 +178,7 @@ const CreateWorkout = () => {
     setLoading(true);
     await api.createWorkout({gymId: gym!.id, coachId: coach?.id, date: date!});
     setLoading(false);
+    history.push('/workouts')
   };
 
   return (

@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setAccountAction} from "../../../store/account";
 import api from "../../../api";
-import {useAuthorized} from "../../../hooks/useAuthorized";
+import {AUTH_TOKEN_KEY, useAuthorized} from "../../../hooks/useAuthorized";
 
 const AuthButton = () => {
   const history = useHistory();
@@ -18,6 +18,7 @@ const AuthButton = () => {
   const handleSignOut = () => {
     dispatch(setAccountAction(null));
     api.setAuthorizationHeader(null);
+    localStorage.setItem(AUTH_TOKEN_KEY, '');
     history.push('/');
   };
 
