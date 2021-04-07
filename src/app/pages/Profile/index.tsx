@@ -8,15 +8,15 @@ import GymProfile from './GymProfile';
 const Profile = () => {
   const account = useSelector(selectAccount);
 
-  if (account?.roles.includes('CLIENT')) {
+  if (account?.roles.includes('ROLE_CLIENT')) {
     return <ClientProfile />;
   }
 
-  if (account?.roles.includes('COACH')) {
+  if (account?.roles.includes('ROLE_COACH')) {
     return <CoachProfile />;
   }
 
-  if (account?.roles.includes('GYM')) {
+  if (account?.roles.includes('ROLE_GYM')) {
     return <GymProfile />;
   }
 

@@ -16,13 +16,14 @@ export type Account = {
 export const setAccountAction = createAction<Account | null>(SET_ACCOUNT);
 export const setAccountLoadingAction = createAction<boolean>(SET_ACCOUNT_LOADING);
 
-export const selectAccount = (state: any): Account | null => state.account.data && {
-  roles: ['COACH'],
-  firstName: 'Hello',
-  lastName: 'World',
-  phone: '+380688081830',
-  email: 'illya.kurochkin@gmail.com',
-};
+export const selectAccount = (state: any): Account | null => state.account.data
+//   && {
+//   roles: ['COACH'],
+//   firstName: 'Hello',
+//   lastName: 'World',
+//   phone: '+380688081830',
+//   email: 'illya.kurochkin@gmail.com',
+// };
 export const selectAccountLoading = (state: any): boolean => state.account.loading;
 
 const INITIAL_STATE = {

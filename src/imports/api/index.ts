@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 
 const client = axios.create({baseURL: 'http://localhost:8080'});
 
@@ -103,9 +104,20 @@ const getCoaches = async (): Promise<Coach[]> => {
   return data.content;
 };
 
+const getAvailableCoaches = async (gymId: string, date: Date): Promise<Coach[]> => {
+  const {data} = await client.get('/coaches');
+  return data.content;
+}
+
 const getMyWorkouts = async (): Promise<Workout[]> => {
   const {data} = await client.get('/workouts');
   return data.content;
+}
+
+const createWorkout = async ({coachId, gymId, date}: {coachId: string, gymId: string, date: Date}): Promise<void> => {
+  await client.post('/workouts', {
+    coachId, gymId, date: moment(date).format('YYYY-MM-DD')
+  });
 }
 
 const api = {
@@ -115,6 +127,8 @@ const api = {
   setAuthorizationHeader,
   getGyms,
   getCoaches,
+  getAvailableCoaches,
+  createWorkout,
   getMyWorkouts
 }
 
