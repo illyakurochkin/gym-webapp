@@ -16,7 +16,7 @@ const ClientProfile = () => {
           <Box position="relative">
             <Image
               circular
-              src={account?.photo}
+              src={`data:image/png;base64,${account?.avatar}`}
               style={{width: 100, height: 100, backgroundColor: 'green'}}
             />
             {false && (
@@ -37,7 +37,8 @@ const ClientProfile = () => {
           </Box>
         </Flex>
         <Header style={{paddingTop: 20, margin: 0, fontWeight: 400}}>Адреса електронної пошти: <span style={{color: 'blue'}}>{account?.email}</span></Header>
-        <Header style={{margin: 0, fontWeight: 400}}>Номер телефону: <span style={{color: 'blue'}}>{account?.phone}</span></Header>
+        <Header style={{margin: 0, fontWeight: 400}}>Номер телефону: <span style={{color: 'blue'}}>{account?.phoneNumber}</span></Header>
+        <Header style={{margin: 0, fontWeight: 400}}>Дата народження: <span style={{color: 'blue'}}>{account?.birthDate}</span></Header>
       </Flex>
     </Layout>
   );

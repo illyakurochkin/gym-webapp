@@ -33,6 +33,7 @@
     "react-scripts": "4.0.3",
     "react-semantic-ui-datepickers": "^2.13.0",
     "react-use": "^17.2.1",
+    "semantic-ui-calendar-react": "^0.15.3",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
     "styled-components": "^5.2.1",

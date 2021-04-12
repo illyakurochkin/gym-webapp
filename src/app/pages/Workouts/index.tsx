@@ -20,7 +20,7 @@ const Workouts = () => {
     const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
     return `${day}.${month}.${year} ${hours}:${minutes}`;
   }
-  
+
   const renderContent = () => {
     if (loading) {
       return (
@@ -42,7 +42,7 @@ const Workouts = () => {
         title={`🕒${formatDateTime(workout.startTime)}`}
       >
         <Flex direction="column">
-          <Header>bd — {workout.gym.street}<br/>Тренер: {workout.coach.firstName} {workout.coach.lastName}</Header>
+          <Header>bd — {workout.gym?.street}<br/>Тренер: {workout.coach?.firstName} {workout.coach?.lastName}</Header>
         </Flex>
       </Card>
     ));

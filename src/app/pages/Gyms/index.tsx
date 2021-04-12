@@ -6,8 +6,12 @@ import api, {Gym} from "../../../imports/api";
 import {Flex} from '@chakra-ui/react';
 import Card from "../../../imports/components/Card";
 import {Header} from 'semantic-ui-react';
+import { useState } from 'react';
+import GymModal from './GymModal';
 
 const Gyms = () => {
+  const [selectedGym, setSelectedGym] = useState<Gym | null>(null);
+
   const {loading, value: gyms} = useAsync(api.getGyms, []);
 
   const renderContent = () => {
@@ -28,6 +32,8 @@ const Gyms = () => {
       <Card
         key={gym.id}
         photo={gym.photo}
+        onClick={() => setSelectedGym(gym)}
+        style={{cursor: 'pointer'}}
         title={`м. ${gym.city}, вул. ${gym.street} ${gym.house}`}
       >
         <Flex direction="column">
@@ -38,9 +44,12 @@ const Gyms = () => {
   }
 
   return (
-    <Layout>
-      {renderContent()}
-    </Layout>
+    <>
+      <Layout>
+        {renderContent()}
+      </Layout>
+      <GymModal gym={selectedGym} onClose={() => setSelectedGym(null)}/>
+    </>
   );
 };
 

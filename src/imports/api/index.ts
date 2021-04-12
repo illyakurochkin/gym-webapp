@@ -25,7 +25,7 @@ export type Account = {
   sex: string,
   email: string,
   password: string,
-  image: string,
+  avatar: string,
 }
 
 const registerAccount = async (account: Account) => {
@@ -104,8 +104,8 @@ const getCoaches = async (): Promise<Coach[]> => {
   return data.content;
 };
 
-const getAvailableCoaches = async (gymId: string, date: Date): Promise<Coach[]> => {
-  const {data} = await client.get('/coaches');
+const getAvailableCoaches = async (gymId: string, startTime: string, endTime: string): Promise<Coach[]> => {
+  const {data} = await client.get('/coaches', {params: {gymId, start_time: startTime, end_time: endTime}});
   return data.content;
 }
 
@@ -114,9 +114,12 @@ const getMyWorkouts = async (): Promise<Workout[]> => {
   return data.content;
 }
 
-const createWorkout = async ({coachId, gymId, date}: {coachId: string, gymId: string, date: Date}): Promise<void> => {
+const createWorkout = async (
+  {coachId, gymId, startTime, endTime}:
+    { coachId: string, gymId: string, startTime: string, endTime: string }
+): Promise<void> => {
   await client.post('/workouts', {
-    coachId, gymId, date: moment(date).format('YYYY-MM-DD')
+    coachId, gymId, startTime, endTime
   });
 }
 

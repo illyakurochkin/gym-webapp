@@ -2,12 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {Button, Dropdown, Icon, List, Step} from 'semantic-ui-react';
 import Layout from "../../../imports/components/Layout";
 import api, {Gym} from "../../../imports/api";
-import {Box} from '@chakra-ui/react';
+import {Box, Flex} from '@chakra-ui/react';
 import moment from 'moment';
-import { Flex } from '@chakra-ui/react';
-import { Datepicker } from './styledComponents';
 import './index.css';
 import {useHistory} from "react-router-dom";
+import TimeRangeInput from "./TimeRangeInput";
 
 const initialSteps = [
   {
@@ -17,7 +16,7 @@ const initialSteps = [
     description: 'Виберіть спортзал',
   },
   {
-    key: 'date',
+    key: 'timeRange',
     icon: 'calendar alternate',
     title: 'Дата',
     description: 'Виберіть дату тренування',
@@ -52,7 +51,7 @@ const CreateWorkout = () => {
   const history = useHistory();
 
   const [gym, setGym] = useState<Gym | null>();
-  const [date, setDate] = useState<Date | null>();
+  const [timeRange, setTimeRange] = useState<any | null>();
   const [coach, setCoach] = useState<any | null>();
   const [active, setActive] = useState<string>('gym');
 
@@ -71,13 +70,16 @@ const CreateWorkout = () => {
   }, []);
 
   useEffect(() => {
-    if (gym) {
+    if (gym && timeRange && timeRange.date && timeRange.startTime && timeRange.endTime) {
       setCoachesOptionsLoading(true);
-      api.getAvailableCoaches(gym.id, date!)
+      const date = moment(timeRange.date).format('YYYY-MM-DD');
+
+      api.getAvailableCoaches(gym.id, `${date} ${timeRange.startTime}:00`,
+        `${date} ${timeRange.endTime}:00`)
         .then((coaches: any) => setCoachesOptions(coaches.map(mapCoachToOption)))
         .then(() => setCoachesOptionsLoading(false));
     }
-  }, [gym, date]);
+  }, [gym, timeRange]);
 
   const renderInputs = () => {
     if (active === 'gym') {
@@ -92,22 +94,21 @@ const CreateWorkout = () => {
           onChange={(v: any, {value}: any) => {
             setGym(value);
             setCoach(null);
-            setActive('date')
+            setActive('timeRange')
           }}
         />
       );
     }
 
-    if (active === 'date') {
+    if (active === 'timeRange') {
       return (
-        <Datepicker
-          value={date}
-          placeholder="Виберіть дату"
-          onChange={(event: any, {value}: any) => {
-            setDate(value);
+        <TimeRangeInput
+          value={timeRange}
+          onChange={(value: any) => {
+            setTimeRange(value);
             setCoach(null);
 
-            if(value) {
+            if (value && value.date && value.startTime && value.endTime) {
               setActive('coach')
             }
           }}
@@ -132,27 +133,29 @@ const CreateWorkout = () => {
 
   const renderContent = () => {
     const gymLabel = `${gym?.city} ${gym?.street} ${gym?.house}`;
-    const dateLabel = moment(date).format('YYYY-MM-DD');
+    const timeRangeLabel = timeRange && timeRange.date && timeRange.startTime && timeRange.endTime
+      && moment(timeRange.date).format('YYYY-MM-DD') +
+      ` ${timeRange.startTime} - ${timeRange.endTime}`
     const coachLabel = `${coach?.firstName} ${coach?.lastName}`;
 
     return (
       <List style={{paddingLeft: 20}}>
         <List.Item>
-          <List.Icon name='location arrow' />
+          <List.Icon name='location arrow'/>
           <List.Content>
             {'Gym: '}
             {gym ? <a>{gymLabel}</a> : '-'}
           </List.Content>
         </List.Item>
         <List.Item>
-          <List.Icon name='calendar alternate' />
+          <List.Icon name='calendar alternate'/>
           <List.Content>
-            {'Date: '}
-            {date ? <a>{dateLabel}</a> : '-'}
+            {'Time range: '}
+            {timeRange ? <a>{timeRangeLabel}</a> : '-'}
           </List.Content>
         </List.Item>
         <List.Item>
-          <List.Icon name='user' />
+          <List.Icon name='user'/>
           <List.Content>
             {'Coach: '}
             {coach ? <a>{coachLabel}</a> : '-'}
@@ -170,13 +173,18 @@ const CreateWorkout = () => {
     Object.assign(steps[1], {disabled: true});
   }
 
-  if (!date) {
+  if (!timeRange || !timeRange.date || !timeRange.startTime || !timeRange.endTime) {
     Object.assign(steps[2], {disabled: true});
   }
 
   const handleCreateWorkoutClick = async () => {
     setLoading(true);
-    await api.createWorkout({gymId: gym!.id, coachId: coach?.id, date: date!});
+    await api.createWorkout({
+      gymId: gym!.id,
+      coachId: coach?.id,
+      startTime: `${moment(timeRange.date).format('YYYY-MM-DD')} ${timeRange.startTime}:00`,
+      endTime: `${moment(timeRange.date).format('YYYY-MM-DD')} ${timeRange.endTime}:00`,
+    });
     setLoading(false);
     history.push('/workouts')
   };
@@ -193,11 +201,11 @@ const CreateWorkout = () => {
       <Flex padding="20px" direction="row" justify="flex-end">
         <Button
           primary
-          disabled={!gym || !date || loading}
+          disabled={!gym || !timeRange?.date || !timeRange?.startTime || !timeRange?.endTime || loading}
           onClick={handleCreateWorkoutClick}
           loading={loading}
         >
-          <Icon name="check" />
+          <Icon name="check"/>
           Create Workout
         </Button>
       </Flex>
