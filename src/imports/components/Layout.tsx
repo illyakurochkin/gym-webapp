@@ -11,7 +11,6 @@ const Layout = ({children}: Props) => {
       direction="column"
       maxWidth="850px"
       minHeight="500px"
-      border="1px solid red"
       margin="0 auto 40px auto"
     >
       {children}
