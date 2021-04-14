@@ -10,7 +10,7 @@ const Footer = () => {
       justify="space-between"
       align="center"
       backgroundColor="white"
-      marginTop="-8px"
+      marginTop="auto"
     >
       <Link to="/">
         <Flex
