@@ -124,6 +124,7 @@ const CreateWorkout = () => {
           fluid
           selection
           options={coachesOptions}
+          clearable
           value={coach as any}
           onChange={(v: any, {value}: any) => setCoach(value)}
         />

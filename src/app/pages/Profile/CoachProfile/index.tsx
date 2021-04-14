@@ -16,7 +16,7 @@ const CoachProfile = () => {
           <Box position="relative">
             <Image
               circular
-              src={account?.avatar}
+              src={`data:image/png;base64,${account?.avatar}`}
               style={{width: 100, height: 100, backgroundColor: 'green'}}
             />
             {false && (

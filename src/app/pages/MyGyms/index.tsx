@@ -7,12 +7,16 @@ import {Flex} from '@chakra-ui/react';
 import Card from "../../../imports/components/Card";
 import {Header} from 'semantic-ui-react';
 import { useState } from 'react';
-import GymModal from './GymModal';
+import GymModal from '../Gyms/GymModal';
+import {selectAccount} from "../../../imports/store/account";
+import {useSelector} from "react-redux";
 
-const Gyms = () => {
+const MyGyms = () => {
+  const account = useSelector(selectAccount);
   const [selectedGym, setSelectedGym] = useState<Gym | null>(null);
 
-  const {loading, value: gyms} = useAsync(api.getGyms, []);
+  const {loading, value: gyms} = useAsync(() => api.getCoachGyms(account!.id),
+    [account!.id]);
 
   const renderContent = () => {
     if (loading) {
@@ -46,6 +50,7 @@ const Gyms = () => {
     });
   }
 
+  console.log('here');
   return (
     <>
       <Layout>
@@ -56,4 +61,4 @@ const Gyms = () => {
   );
 };
 
-export default Gyms;
+export default MyGyms;

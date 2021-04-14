@@ -4,7 +4,7 @@ import {useAuthorized} from "../../../hooks/useAuthorized";
 import {useHistory} from "react-router-dom";
 
 const CreateWorkoutButton = () => {
-  const {authorized} = useAuthorized();
+  const {authorized, role} = useAuthorized();
   const history = useHistory();
 
   const handleClick = () => {
@@ -15,13 +15,17 @@ const CreateWorkoutButton = () => {
     }
   }
 
-  return (
-    <Button
-      primary
-      circular
-      onClick={handleClick}
-    >✍🏻 Записатися на тренування</Button>
-  );
+  if(!authorized || role === 'ROLE_CLIENT') {
+    return (
+      <Button
+        primary
+        circular
+        onClick={handleClick}
+      >✍🏻 Записатися на тренування</Button>
+    );
+  }
+
+  return <div />;
 };
 
 export default CreateWorkoutButton;

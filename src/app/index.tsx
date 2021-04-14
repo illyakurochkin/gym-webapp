@@ -14,9 +14,10 @@ import Footer from "../imports/modules/Footer";
 import Profile from "./pages/Profile";
 import Workouts from "./pages/Workouts";
 import CreateWorkout from "./pages/CreateWorkout";
+import MyGyms from "./pages/MyGyms";
 
 const App = () => {
-  const {authorized} = useAuthorized();
+  const {authorized, role} = useAuthorized();
 
   const renderRouter = () => (
     <>
@@ -30,7 +31,9 @@ const App = () => {
         <Route path="/about" component={About}/>
         {authorized && <Route path="/profile" component={Profile}/>}
         {authorized && <Route exact path="/workouts" component={Workouts}/>}
-        {authorized && <Route path="/create-workout" component={CreateWorkout}/>}
+        {role === 'ROLE_CLIENT' && <Route path="/create-workout" component={CreateWorkout}/>}
+        {role === 'ROLE_COACH' && <Route path="/my-gyms" component={MyGyms} />}
+        {/*{role === 'ROLE_GYM' && <Route path="/my-coaches" component={MyCoaches} />}*/}
         <Route path="*" render={() => <Redirect to="/"/>}/>
       </Switch>
       <Footer/>

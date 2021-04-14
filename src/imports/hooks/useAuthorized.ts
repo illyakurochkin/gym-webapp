@@ -24,6 +24,7 @@ export const useAuthorized = () => {
 
   return {
     authorized: Boolean(account),
+    role: account?.roles[0] || null,
     loading: accountLoading,
   };
 };

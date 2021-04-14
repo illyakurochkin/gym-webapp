@@ -13,8 +13,8 @@ const authenticate = async (email: string, password: string): Promise<string> =>
 };
 
 const getAccount = async (): Promise<any> => {
-  const {data} = await client.get('/me');
-  return data;
+  const {data: {client: clientData, roles}} = await client.get('/me');
+  return {...clientData, roles};
 };
 
 export type Account = {
@@ -48,6 +48,7 @@ export type Equipment = {
 }
 
 export type Gym = {
+  avatar?: string,
   id: string,
   email: string,
   phone: string,
@@ -123,6 +124,16 @@ const createWorkout = async (
   });
 }
 
+const getGymStats = async (gymId: string): Promise<any> => {
+  const {data} = await client.get(`/gyms/${gymId}/`);
+  return data;
+};
+
+const getCoachGyms = async (coachId: string): Promise<Gym[]> => {
+  const {data} = await client.get('/gyms', {params: {coachId}});
+  return data.content;
+}
+
 const api = {
   getAccount,
   registerAccount,
@@ -132,7 +143,9 @@ const api = {
   getCoaches,
   getAvailableCoaches,
   createWorkout,
-  getMyWorkouts
+  getMyWorkouts,
+  getGymStats,
+  getCoachGyms
 }
 
 export default api;

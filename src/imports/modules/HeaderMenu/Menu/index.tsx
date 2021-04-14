@@ -15,6 +15,10 @@ const privateItems = [
   {label: '📝 Мої тренування', path: '/workouts'},
 ];
 
+const coachItems = [
+  {label: '🏛 Мої спортзали', path: '/my-gyms'}
+];
+
 const publicItems: Item[] = [
   {label: '🏋 Спортзали', path: '/gyms'},
   {label: '🥊 Тренери', path: '/coaches'},
@@ -25,9 +29,13 @@ const publicItems: Item[] = [
 
 const MenuComponent = () => {
   const {pathname} = useLocation();
-  const {authorized} = useAuthorized();
+  const {authorized, role} = useAuthorized();
 
-  const items = [...(authorized ? privateItems : []), ...publicItems];
+  const items = [
+    ...(authorized ? privateItems : []),
+    ...(role === 'ROLE_COACH' ? coachItems : []),
+    ...publicItems
+  ];
 
   const renderItem = ({label, path}: Item) => (
     <MenuItem

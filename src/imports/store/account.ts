@@ -4,6 +4,7 @@ const SET_ACCOUNT = 'account/SET_ACCOUNT';
 const SET_ACCOUNT_LOADING = 'account/SET_ACCOUNT_LOADING';
 
 export type Account = {
+  id: string,
   birthDate: string,
   username: string,
   roles: string[],
@@ -17,8 +18,11 @@ export type Account = {
 export const setAccountAction = createAction<Account | null>(SET_ACCOUNT);
 export const setAccountLoadingAction = createAction<boolean>(SET_ACCOUNT_LOADING);
 
-export const selectAccount = (state: any): Account | null => state.account.data && {
-  roles: ['ROLE_COACH'], ...state.account.data,
+export const selectAccount = (state: any): Account | null => {
+  console.log('state.account.data', state.account.data);
+  return state.account.data && {
+    ...state.account.data, roles: ['ROLE_COACH'],
+  };
 }
 //   && {
 //   roles: ['ROLE_COACH'],
